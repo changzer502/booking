@@ -87,7 +87,7 @@ func CreateDoctor(c *gin.Context) {
 		return
 	}
 
-	if err, user := services.UserService.CreateDoctor(form, c.Keys["id"].(uint)); err != nil {
+	if err, user := services.UserService.CreateDoctor(form, c.Keys["id"].(string)); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		response.Success(c, user)

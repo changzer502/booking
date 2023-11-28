@@ -64,19 +64,21 @@ func (userService *userService) WxLogin(params request.WxLogin) (err error, user
 	return
 }
 
-func (userService *userService) CreateDoctor(params request.CreateDoctorReq, id uint) (err error, user models.User) {
+func (userService *userService) CreateDoctor(params request.CreateDoctorReq, id string) (err error, user models.User) {
 	introduce, _ := json.Marshal(params.Introduce)
+	uid, _ := strconv.Atoi(id)
 	user = models.User{
 		Nickname:     params.Nickname,
 		AvatarUrl:    params.AvatarUrl,
 		DepartmentID: params.DepartmentID,
 		Password:     utils.BcryptMake([]byte("123456")),
 		Introduce:    string(introduce),
+		RoleId:       2,
 		Timestamps: models.Timestamps{
 			CreatedAt: time.Now(),
-			CreatedBy: id,
+			CreatedBy: uint(uid),
 			UpdatedAt: time.Now(),
-			UpdatedBy: id,
+			UpdatedBy: uint(uid),
 		},
 	}
 	err = global.App.DB.Create(&user).Error

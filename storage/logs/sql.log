@@ -22365,3 +22365,438 @@
 
 2023/11/28 10:51:57 E:/学习/last/registration-booking/bootstrap/db.go:61
 [1.345ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'permissions' AND index_name = 'idx_permissions_deleted_at'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[2.176ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.848ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.489ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.514ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.508ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.387ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.022ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'users' AND index_name = 'idx_users_open_id'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.054ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.681ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.005ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.680ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.041ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.067ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.506ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.129ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.969ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.407ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.242ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.624ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.503ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.825ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.506ms] [rows:-] SELECT * FROM `cards` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.051ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'cards' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.503ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.803ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.588ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND index_name = 'idx_cards_user_id'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.895ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.637ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND index_name = 'idx_cards_deleted_at'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.982ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.656ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.658ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.504ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.163ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.505ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.954ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.599ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_parent_id'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.032ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.893ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.546ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_order_num'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.505ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.891ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.678ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_deleted_at'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.061ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.765ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'roles' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.177ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT * FROM `roles` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.540ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'roles' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.936ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.580ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'roles' AND index_name = 'idx_roles_deleted_at'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.034ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.491ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.971ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'permissions' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.244ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT * FROM `permissions` LIMIT 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.104ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'permissions' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.895ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:06:25 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.599ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'permissions' AND index_name = 'idx_permissions_deleted_at'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.505ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[3.523ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[3.030ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'users' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.641ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.507ms] [rows:-] SELECT * FROM `users` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.476ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'users' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.516ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[2.198ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[2.656ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'users' AND index_name = 'idx_users_open_id'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.185ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.465ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'users' AND index_name = 'idx_users_deleted_at'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.575ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.700ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'media' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.439ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.509ms] [rows:-] SELECT * FROM `media` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.982ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'media' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.506ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.020ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.682ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'media' AND index_name = 'idx_media_disk_type'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.795ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.618ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.289ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.504ms] [rows:-] SELECT * FROM `cards` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.217ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'cards' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.507ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.587ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.259ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND index_name = 'idx_cards_user_id'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.397ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.467ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'cards' AND index_name = 'idx_cards_deleted_at'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.504ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.933ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.960ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.800ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.506ms] [rows:-] SELECT * FROM `departments` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[2.293ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'departments' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.021ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.518ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.438ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_parent_id'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[2.914ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.574ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_order_num'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.506ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.364ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.299ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'departments' AND index_name = 'idx_departments_deleted_at'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.558ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.652ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'roles' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.549ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.569ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.512ms] [rows:-] SELECT * FROM `roles` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.675ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'roles' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.530ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.465ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.272ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'roles' AND index_name = 'idx_roles_deleted_at'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.519ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.752ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.617ms] [rows:-] SELECT count(*) FROM information_schema.tables WHERE table_schema = 'registration-booking' AND table_name = 'permissions' AND table_type = 'BASE TABLE'
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.287ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.507ms] [rows:-] SELECT * FROM `permissions` LIMIT 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[3.093ms] [rows:-] SELECT column_name, column_default, is_nullable = 'YES', data_type, character_maximum_length, column_type, column_key, extra, column_comment, numeric_precision, numeric_scale FROM information_schema.columns WHERE table_schema = 'registration-booking' AND table_name = 'permissions' ORDER BY ORDINAL_POSITION
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[0.000ms] [rows:-] SELECT DATABASE()
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.978ms] [rows:1] SELECT SCHEMA_NAME from Information_schema.SCHEMATA where SCHEMA_NAME LIKE 'registration-booking%' ORDER BY SCHEMA_NAME='registration-booking' DESC,SCHEMA_NAME limit 1
+
+2023/11/28 11:07:58 E:/学习/last/registration-booking/bootstrap/db.go:61
+[1.405ms] [rows:-] SELECT count(*) FROM information_schema.statistics WHERE table_schema = 'registration-booking' AND table_name = 'permissions' AND index_name = 'idx_permissions_deleted_at'
+
+2023/11/28 11:08:23 E:/学习/last/registration-booking/app/services/user.go:83
+[15.093ms] [rows:1] INSERT INTO `users` (`nickname`,`gender`,`avatar_url`,`mobile`,`open_id`,`password`,`role_id`,`introduce`,`department_id`,`created_at`,`created_by`,`updated_at`,`updated_by`,`deleted_at`) VALUES ('肖建中',0,'https://www.btch.edu.cn/images/content/2015-05/20150519131527201004.jpg','','','$2a$04$kSUExS9NcCV5fgrftscQjOUTEuUwHU/DWbqi29Tl7SeWNszD/HA.C',0,'{"duties":"主任医师、内分泌及代谢科主任","speciality":"擅长糖尿病\u0026糖前、甲状腺疾病、肥胖、高脂血症、高尿酸血症、妊娠合并代谢异常，内分泌高血压，及疑难内分泌代谢疾病的诊治。","educational_background":"北京协和医学院博士生导师 ,84年毕业于武汉医学院，后获北京协和医科大学硕士学位、丹麦Aarhus大学理学博士学位","work_experience":"1984-2015年在中日友好医院\n从事内分泌及内科临床和科研工作30年。","research_direction":"糖尿病,甲状腺疾病和内分泌疑难疾病诊治","academic_positions":"现任中华医学会糖尿病学分会委员及流行病学学组组长，中华糖尿病杂志编委，中国糖尿病杂志编委。曾获多个国家及省部级课题资助。发表学术论文120余篇，被SCI收录30篇，包括顶尖的国际学术期刊新英格兰医学杂志, 循环和内分泌学。2012获北京市科技一等奖及中华医学奖二等奖。"}',4,'2023-11-28 11:08:23.906',2,'2023-11-28 11:08:23.906',2,NULL)

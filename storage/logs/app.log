@@ -317,3 +317,44 @@ D:/Go/go1.20.3/src/runtime/asm_amd64.s:1598 (0xb6f880)
 [2023-11-25 00:40:22.172]	local.error	bootstrap/db.go:68	migrate table failed	{"err": "Error 1265 (01000): Data truncated for column 'introduction' at row 2"}
 [2023-11-25 00:45:56.751]	local.error	bootstrap/db.go:68	migrate table failed	{"err": "Error 1071 (42000): Specified key was too long; max key length is 3072 bytes"}
 [2023-11-28 10:47:38.574]	local.error	bootstrap/db.go:70	migrate table failed	{"err": "Error 1170 (42000): BLOB/TEXT column 'mobile' used in key specification without a key length"}
+
+
+[31m2023/11/28 11:06:38 [Recovery] 2023/11/28 - 11:06:38 panic recovered:
+POST /api/admin/create_doctor HTTP/1.1
+Host: localhost:8888
+Accept: */*
+Accept-Encoding: gzip, deflate, br
+Authorization: *
+Cache-Control: no-cache
+Connection: keep-alive
+Content-Length: 1253
+Content-Type: application/json
+User-Agent: PostmanRuntime-ApipostRuntime/1.1.0
+
+
+interface conversion: interface {} is string, not uint
+D:/Go/go1.20.3/src/runtime/iface.go:262 (0x2c309)
+	panicdottypeE: panic(&TypeAssertionError{iface, have, want, ""})
+E:/学习/last/registration-booking/app/handler/user.go:90 (0xd1748a)
+	CreateDoctor: if err, user := services.UserService.CreateDoctor(form, c.Keys["id"].(uint)); err != nil {
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xcd74bc)
+	(*Context).Next: c.handlers[c.index](c)
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/recovery.go:102 (0xceaef7)
+	CustomRecoveryWithWriter.func1: c.Next()
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xcd74bc)
+	(*Context).Next: c.handlers[c.index](c)
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/logger.go:240 (0xce9991)
+	LoggerWithConfig.func1: c.Next()
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/context.go:174 (0xcd74bc)
+	(*Context).Next: c.handlers[c.index](c)
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:620 (0xce7573)
+	(*Engine).handleHTTPRequest: c.Next()
+E:/学习/golang学习/GO/pkg/mod/github.com/gin-gonic/gin@v1.9.1/gin.go:576 (0xce7044)
+	(*Engine).ServeHTTP: engine.handleHTTPRequest(c)
+D:/Go/go1.20.3/src/net/http/server.go:2936 (0x59f493)
+	serverHandler.ServeHTTP: handler.ServeHTTP(rw, req)
+D:/Go/go1.20.3/src/net/http/server.go:1995 (0x598e74)
+	(*conn).serve: serverHandler{c.server}.ServeHTTP(w, w.req)
+D:/Go/go1.20.3/src/runtime/asm_amd64.s:1598 (0x8f880)
+	goexit: BYTE	$0x90	// NOP
+[0m
