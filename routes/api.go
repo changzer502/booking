@@ -9,6 +9,8 @@ import (
 
 // SetApiGroupRoutes 定义 api 分组路由
 func SetApiGroupRoutes(router *gin.RouterGroup) {
+	router.GET("/test/GetDoctorList", handler.GetDoctorList)
+
 	router.POST("/auth/register", handler.Register)
 	router.POST("/auth/login", handler.Login)
 	router.POST("/auth/wx_login", handler.WxLogin)
@@ -40,7 +42,8 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	}
 
 	admin := authRouter.Group("/admin", middleware.JWTAuth(services.AppGuardName))
-	{
-		admin.POST("/create_doctor", handler.CreateDoctor)
-	}
+	admin.POST("/create_doctor", handler.CreateDoctor)
+	doctor := router.Group("/doctor")
+	doctor.GET("/list/:department_id", handler.GetDoctorList)
+
 }

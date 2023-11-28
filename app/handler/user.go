@@ -93,3 +93,11 @@ func CreateDoctor(c *gin.Context) {
 		response.Success(c, user)
 	}
 }
+
+func GetDoctorList(c *gin.Context) {
+	if err, list := services.UserService.GetDoctorList(c.Param("department_id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, list)
+	}
+}

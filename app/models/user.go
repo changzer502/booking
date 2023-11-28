@@ -11,8 +11,8 @@ type User struct {
 	OpenId       string `json:"open_id" gorm:"index;comment:WX用户唯一标识"`
 	Password     string `json:"password" gorm:"comment:用户密码"`
 	RoleId       uint   `json:"role_id" gorm:"comment:用户角色"`
-	Introduce    string `json:"introduce" gorm:"size:1024;comment:用户简介"`
-	DepartmentID uint   `json:"department_id" gorm:"comment:医生所属科室"`
+	Introduce    string `json:"introduce" gorm:"size:2048;comment:用户简介"`
+	DepartmentID uint   `json:"department_id" gorm:"index;comment:医生所属科室"`
 	Timestamps
 	SoftDeletes
 }

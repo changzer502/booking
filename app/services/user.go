@@ -2,12 +2,16 @@ package services
 
 import (
 	"errors"
+	"fmt"
+	"github.com/PuerkitoBio/goquery"
 	"github.com/goccy/go-json"
+	"net/http"
 	"registration-booking/app/common/request"
 	"registration-booking/app/models"
 	"registration-booking/global"
 	"registration-booking/utils"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -82,5 +86,105 @@ func (userService *userService) CreateDoctor(params request.CreateDoctorReq, id 
 		},
 	}
 	err = global.App.DB.Create(&user).Error
+	return
+}
+
+func (userService *userService) GetDoctorListBySpider(url string, id uint) (err error, users []models.User) {
+	client := &http.Client{}
+	req, _ := http.NewRequest("GET", url, nil)
+	// 自定义Header
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36 Edg/119.0.0.0")
+
+	resp, err := client.Do(req)
+	if err != nil {
+		fmt.Println("http get error", err)
+		return
+	}
+	//函数结束后关闭相关链接
+	defer resp.Body.Close()
+
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		fmt.Println("解析HTML失败：", err)
+	}
+	doc.Find(".subPage").Find("li").Each(func(i int, selection *goquery.Selection) {
+		link, err := selection.Find("a").Attr("href")
+		if err != true {
+			fmt.Println("获取链接失败：", err)
+		} else {
+			user := download(urlJoin(link, url), id)
+			err, _ := userService.CreateDoctor(user, "2")
+			if err != nil {
+				fmt.Println(err.Error())
+			}
+		}
+	})
+	return
+}
+func download(url string, departmentID uint) request.CreateDoctorReq {
+	resp, err := http.Get(url)
+	if err != nil {
+		fmt.Println("请求失败：", err)
+	}
+	defer resp.Body.Close()
+	doc, err := goquery.NewDocumentFromReader(resp.Body)
+	if err != nil {
+		fmt.Println("解析HTML失败：", err)
+	}
+	// 头像
+
+	avatarUrl := ""
+	doc.Find(".imgResponsive").Find("img").Each(func(i int, selection *goquery.Selection) {
+		avatarUrl, _ = selection.Attr("src")
+	}).Attr("src")
+	avatarUrl = "https://www.btch.edu.cn/" + avatarUrl[12:]
+
+	info := doc.Find(".doctorList01").Text()
+	info = strings.ReplaceAll(info, "姓 名：", "")
+	info = strings.ReplaceAll(info, "职 务：", "")
+	info = strings.ReplaceAll(info, "特 长：", "\n")
+	infos := strings.Split(info, "\n")
+	user := request.CreateDoctorReq{
+		AvatarUrl:    avatarUrl,
+		DepartmentID: departmentID,
+	}
+	if len(infos) > 1 {
+		user.Nickname = strings.Trim(infos[1], " ")
+	}
+	introduce := request.Introduce{}
+	if len(infos) > 2 {
+		introduce.Duties = strings.Trim(infos[2], " ")
+	}
+	if len(infos) > 3 {
+		introduce.Speciality = strings.Trim(infos[3], " ")
+	}
+	other := doc.Find(".doctorColumn").Text()
+	others := strings.Split(other, "\n")
+	if len(others) > 2 {
+		introduce.EducationalBackground = strings.Trim(others[2], " ")
+	}
+
+	if len(others) > 5 {
+		introduce.WorkExperience = strings.Trim(others[5], " ")
+	}
+	if len(others) > 8 {
+		introduce.ResearchDirection = strings.Trim(others[8], " ")
+	}
+	if len(others) > 11 {
+		introduce.AcademicPositions = strings.Trim(others[11], " ")
+	}
+	user.Introduce = introduce
+
+	fmt.Println(user)
+	return user
+}
+
+func urlJoin(href, base string) string {
+	base = base[:len(base)-9]
+	return base + href
+}
+
+func (userService *userService) GetDoctorList(departmentId string) (err error, user []models.User) {
+	err = global.App.DB.Where("department_id = ? and role_id = ?", departmentId, 2).Find(&user).Error
 	return
 }
