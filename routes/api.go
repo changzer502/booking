@@ -47,4 +47,10 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	doctor.GET("/list/:department_id", handler.GetDoctorList)
 	doctor.GET("/:id", handler.GetDoctorById)
 
+	// 预约
+	scheduleAuth := authRouter.Group("/schedule", middleware.JWTAuth(services.AppGuardName))
+	scheduleAuth.POST("/create", handler.CreateSchedule)
+	scheduleAuth.POST("/ticket/create", handler.CreateTicket)
+	schedule := authRouter.Group("/schedule")
+	schedule.POST("/list", handler.GetScheduleList)
 }
