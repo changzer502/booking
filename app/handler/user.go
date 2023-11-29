@@ -101,3 +101,11 @@ func GetDoctorList(c *gin.Context) {
 		response.Success(c, list)
 	}
 }
+
+func GetDoctorById(c *gin.Context) {
+	if err, list := services.UserService.GetDoctorById(c.Param("id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, list)
+	}
+}

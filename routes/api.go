@@ -45,5 +45,6 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	admin.POST("/create_doctor", handler.CreateDoctor)
 	doctor := router.Group("/doctor")
 	doctor.GET("/list/:department_id", handler.GetDoctorList)
+	doctor.GET("/:id", handler.GetDoctorById)
 
 }

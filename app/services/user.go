@@ -188,3 +188,11 @@ func (userService *userService) GetDoctorList(departmentId string) (err error, u
 	err = global.App.DB.Where("department_id = ? and role_id = ?", departmentId, 2).Find(&user).Error
 	return
 }
+
+func (userService *userService) GetDoctorById(id string) (err error, user models.User) {
+	err = global.App.DB.Where("id = ? and role_id = ?", id, 2).Find(&user).Error
+	if user.ID.ID == 0 {
+		err = errors.New("数据不存在")
+	}
+	return
+}
