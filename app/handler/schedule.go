@@ -48,3 +48,17 @@ func GetScheduleList(c *gin.Context) {
 		response.Success(c, user)
 	}
 }
+
+func Booking(c *gin.Context) {
+	var form request.BookingReq
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+
+	if err, user := services.ScheduleService.Booking(form, c.Keys["id"].(string)); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, user)
+	}
+}

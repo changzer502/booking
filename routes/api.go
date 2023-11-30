@@ -51,6 +51,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	scheduleAuth := authRouter.Group("/schedule", middleware.JWTAuth(services.AppGuardName))
 	scheduleAuth.POST("/create", handler.CreateSchedule)
 	scheduleAuth.POST("/ticket/create", handler.CreateTicket)
+	scheduleAuth.POST("/ticket/booking", handler.Booking)
 	schedule := authRouter.Group("/schedule")
 	schedule.POST("/list", handler.GetScheduleList)
 }

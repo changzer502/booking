@@ -23,3 +23,8 @@ func FindTicketsByScheduleId(scheduleId uint, day string) (ticket Ticket, err er
 	err = global.App.DB.Where("schedule_id = ? AND day = ?", scheduleId, day).Find(&ticket).Error
 	return
 }
+
+func FindTicketsById(id uint) (ticket Ticket, err error) {
+	err = global.App.DB.Where("id = ?", id).Find(&ticket).Error
+	return
+}

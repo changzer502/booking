@@ -1,6 +1,7 @@
 package services
 
 import (
+	"errors"
 	"registration-booking/app/common/request"
 	"registration-booking/app/common/response"
 	"registration-booking/app/models"
@@ -58,10 +59,16 @@ func (scheduleService *scheduleService) GetScheduleList(getScheduleListReq reque
 				return err, nil
 			}
 			scheduleAndTicket.Ticket = ticket
-			// 查询预约状态
+
 			if getScheduleListReq.UserId != 0 {
-				// TODO 查询预约状态
-				scheduleAndTicket.Status = false
+				// 查询预约状态
+				_, count, err := models.FindBookingByTicketIdAndUserId(ticket.ID.ID, getScheduleListReq.UserId, getScheduleListReq.CardId)
+				if err != nil {
+					return err, nil
+				}
+				if count > 0 {
+					scheduleAndTicket.Status = true
+				}
 			}
 			scheduleAndTicketLst = append(scheduleAndTicketLst, scheduleAndTicket)
 		}
@@ -99,5 +106,50 @@ func (scheduleService *scheduleService) CreateTicket(params request.CreateTicket
 		},
 	}
 	err = global.App.DB.Create(&ticket).Error
+	return
+}
+func (scheduleService *scheduleService) Booking(getScheduleListReq request.BookingReq, id string) (err error, scheduleList []response.ScheduleList) {
+	uid, _ := strconv.Atoi(id)
+	// 查询票数
+	ticket, err := models.FindTicketsById(getScheduleListReq.TicketId)
+	if err != nil {
+		return err, nil
+	}
+	if ticket.Num <= 0 {
+		return errors.New("暂无"), nil
+	}
+	cardId := 0
+	// 查询是否已经预约
+	_, count, err := models.FindBookingByTicketIdAndUserId(getScheduleListReq.TicketId, uint(uid), cardId)
+	if err != nil {
+		return err, nil
+	}
+	if count > 0 {
+		return errors.New("已预约"), nil
+	}
+	// 事务开始后，需要使用 tx 处理数据
+	tx := global.App.DB.Begin()
+	defer func() {
+		if err != nil {
+			tx.Rollback()
+		} else {
+			tx.Commit()
+		}
+	}()
+	// 减少票数
+	ticket.Num = ticket.Num - 1
+	version := ticket.Version
+	ticket.Version = ticket.Version + 1
+	affected := tx.Model(&ticket).Where("id = ? AND version = ?", ticket.ID.ID, version).Updates(&ticket).RowsAffected
+	if affected == 0 {
+		return errors.New("服务忙请重试~"), nil
+	}
+	// 创建预约
+	booking := models.Booking{
+		CardId:   uint(cardId),
+		TicketId: ticket.ID.ID,
+		UserId:   uint(uid),
+	}
+	tx.Create(&booking)
 	return
 }

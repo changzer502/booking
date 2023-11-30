@@ -13,6 +13,7 @@ type GetScheduleListReq struct {
 	Week         int    `form:"week" json:"week" binding:"required"`
 	Day          string `form:"day" json:"day" binding:"required"`
 	UserId       uint   `form:"user_id" json:"user_id"`
+	CardId       int    `form:"card_id" json:"card_id"`
 	Only         bool   `form:"only" json:"only"` // 只看有号的
 }
 
@@ -20,4 +21,8 @@ type CreateTicketReq struct {
 	ScheduleId uint   `form:"schedule_id" json:"schedule_id" binding:"required"`
 	Day        string `form:"day" json:"day" binding:"required"`
 	Num        int    `form:"num" json:"num" binding:"required"`
+}
+
+type BookingReq struct {
+	TicketId uint `form:"ticket_id" json:"ticket_id" binding:"required"`
 }
