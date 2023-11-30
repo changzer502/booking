@@ -11,3 +11,9 @@ type ScheduleAndTicket struct {
 	Ticket   models.Ticket   `json:"ticket"`
 	Status   bool            `json:"status"`
 }
+
+type TicketInfo struct {
+	Doctor   models.User     `json:"doctor"`
+	Schedule models.Schedule `json:"schedule"`
+	Ticket   models.Ticket   `json:"ticket"`
+}

@@ -28,3 +28,7 @@ func FindSchedulesByDepartmentID(departmentId uint, week int) (ScheduleList []Sc
 	err = global.App.DB.Where("department_id = ? AND week = ?", departmentId, week).Find(&ScheduleList).Error
 	return
 }
+func FindScheduleByID(id uint) (schedule Schedule, err error) {
+	err = global.App.DB.Where("id = ?", id).Find(&schedule).Error
+	return
+}

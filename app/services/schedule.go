@@ -153,3 +153,23 @@ func (scheduleService *scheduleService) Booking(getScheduleListReq request.Booki
 	tx.Create(&booking)
 	return
 }
+
+func (scheduleService *scheduleService) GetInfoByTicketId(ticketId string) (ticketInfo response.TicketInfo, err error) {
+	id, _ := strconv.Atoi(ticketId)
+	ticket, err := models.FindTicketsById(uint(id))
+	if err != nil {
+		return
+	}
+	ticketInfo.Ticket = ticket
+	schedule, err := models.FindScheduleByID(ticket.ScheduleId)
+	if err != nil {
+		return
+	}
+	ticketInfo.Schedule = schedule
+	doctor, err := models.FindDoctorById(schedule.DoctorId)
+	if err != nil {
+		return
+	}
+	ticketInfo.Doctor = doctor
+	return
+}

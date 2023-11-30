@@ -62,3 +62,11 @@ func Booking(c *gin.Context) {
 		response.Success(c, user)
 	}
 }
+
+func GetInfoByTicketId(c *gin.Context) {
+	if ticketInfo, err := services.ScheduleService.GetInfoByTicketId(c.Param("ticket_id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, ticketInfo)
+	}
+}
