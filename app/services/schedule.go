@@ -118,9 +118,8 @@ func (scheduleService *scheduleService) Booking(getScheduleListReq request.Booki
 	if ticket.Num <= 0 {
 		return errors.New("暂无"), nil
 	}
-	cardId := 0
 	// 查询是否已经预约
-	_, count, err := models.FindBookingByTicketIdAndUserId(getScheduleListReq.TicketId, uint(uid), cardId)
+	_, count, err := models.FindBookingByTicketIdAndUserId(getScheduleListReq.TicketId, uint(uid), int(getScheduleListReq.CardId))
 	if err != nil {
 		return err, nil
 	}
@@ -146,7 +145,7 @@ func (scheduleService *scheduleService) Booking(getScheduleListReq request.Booki
 	}
 	// 创建预约
 	booking := models.Booking{
-		CardId:   uint(cardId),
+		CardId:   getScheduleListReq.CardId,
 		TicketId: ticket.ID.ID,
 		UserId:   uint(uid),
 	}
@@ -171,5 +170,80 @@ func (scheduleService *scheduleService) GetInfoByTicketId(ticketId string) (tick
 		return
 	}
 	ticketInfo.Doctor = doctor
+	return
+}
+func (scheduleService *scheduleService) BookingHistory(page request.Page, id string) (bookingHistoryRes *response.BookingHistoryRes, err error) {
+	uid, _ := strconv.Atoi(id)
+	bookings, count, err := models.FindBookingHistoryByUid(uint(uid), page.Page, page.PageSize)
+	if err != nil {
+		return nil, err
+	}
+	bookingHistoryRes = &response.BookingHistoryRes{}
+	bookingHistoryRes.Count = count
+	for i := 0; i < len(bookings); i++ {
+		ticket, err := models.FindTicketsById(bookings[i].TicketId)
+		if err != nil {
+			return nil, err
+		}
+		schedule, err := models.FindScheduleByID(ticket.ScheduleId)
+		if err != nil {
+			return nil, err
+		}
+		doctor, err := models.FindDoctorById(schedule.DoctorId)
+		if err != nil {
+			return nil, err
+		}
+		department, err := models.FindDepartmentById(schedule.DepartmentId)
+		if err != nil {
+			return nil, err
+		}
+		card, err := models.FindCardById(bookings[i].CardId)
+		if err != nil {
+			return nil, err
+		}
+		bookingHistoryRes.BookingInfos = append(bookingHistoryRes.BookingInfos, response.BookingInfo{
+			Doctor:     doctor,
+			Schedule:   schedule,
+			Ticket:     ticket,
+			Card:       card,
+			Department: department,
+		})
+	}
+	return
+}
+
+func (scheduleService *scheduleService) GetBookingHistoryById(bookingId string, id string) (bookingInfo *response.BookingInfo, err error) {
+	bookingIdInt, _ := strconv.Atoi(bookingId)
+	booking, err := models.FindBookingHistoryById(uint(bookingIdInt))
+	if err != nil {
+		return nil, err
+	}
+	ticket, err := models.FindTicketsById(booking.TicketId)
+	if err != nil {
+		return nil, err
+	}
+	schedule, err := models.FindScheduleByID(ticket.ScheduleId)
+	if err != nil {
+		return nil, err
+	}
+	doctor, err := models.FindDoctorById(schedule.DoctorId)
+	if err != nil {
+		return nil, err
+	}
+	department, err := models.FindDepartmentById(schedule.DepartmentId)
+	if err != nil {
+		return nil, err
+	}
+	card, err := models.FindCardById(booking.CardId)
+	if err != nil {
+		return nil, err
+	}
+	bookingInfo = &response.BookingInfo{
+		Doctor:     doctor,
+		Schedule:   schedule,
+		Ticket:     ticket,
+		Card:       card,
+		Department: department,
+	}
 	return
 }

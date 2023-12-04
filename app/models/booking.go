@@ -24,3 +24,12 @@ func FindBookingByTicketIdAndUserId(ticketId uint, userId uint, cardId int) (boo
 	return
 
 }
+func FindBookingHistoryByUid(userId uint, page, pageSize int) (bookings []Booking, count int64, err error) {
+	err = global.App.DB.Where("user_id = ? ", userId).Offset((page - 1) * pageSize).Limit(pageSize).Find(&bookings).Count(&count).Error
+	return
+}
+
+func FindBookingHistoryById(id uint) (booking Booking, err error) {
+	err = global.App.DB.Where("id = ?", id).Find(&booking).Error
+	return
+}

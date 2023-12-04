@@ -17,3 +17,16 @@ type TicketInfo struct {
 	Schedule models.Schedule `json:"schedule"`
 	Ticket   models.Ticket   `json:"ticket"`
 }
+
+type BookingHistoryRes struct {
+	Count        int64         `json:"count"`
+	BookingInfos []BookingInfo `json:"bookingInfos"`
+}
+
+type BookingInfo struct {
+	Card       models.Card       `json:"card"`
+	Doctor     models.User       `json:"doctor"`
+	Schedule   models.Schedule   `json:"schedule"`
+	Ticket     models.Ticket     `json:"ticket"`
+	Department models.Department `json:"department"`
+}

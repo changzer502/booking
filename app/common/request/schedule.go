@@ -2,7 +2,7 @@ package request
 
 type CreateScheduleReq struct {
 	DoctorId     uint   `form:"doctor_id" json:"doctor_id" binding:"required"`
-	Week         int    `form:"week" json:"week" binding:"required"`
+	Week         int    `form:"week" json:"week" `
 	Time         string `form:"time" json:"time" binding:"required"`
 	Price        int    `form:"price" json:"price" binding:"required"`
 	DepartmentId uint   `form:"department_id" json:"department_id" binding:"required"`
@@ -10,7 +10,7 @@ type CreateScheduleReq struct {
 
 type GetScheduleListReq struct {
 	DepartmentId uint   `form:"department_id" json:"department_id" binding:"required"`
-	Week         int    `form:"week" json:"week" binding:"required"`
+	Week         int    `form:"week" json:"week" `
 	Day          string `form:"day" json:"day" binding:"required"`
 	UserId       uint   `form:"user_id" json:"user_id"`
 	CardId       int    `form:"card_id" json:"card_id"`
@@ -25,4 +25,5 @@ type CreateTicketReq struct {
 
 type BookingReq struct {
 	TicketId uint `form:"ticket_id" json:"ticket_id" binding:"required"`
+	CardId   uint `form:"card_id" json:"card_id" binding:"required"`
 }

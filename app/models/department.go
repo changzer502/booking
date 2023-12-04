@@ -1,6 +1,9 @@
 package models
 
-import "strconv"
+import (
+	"registration-booking/global"
+	"strconv"
+)
 
 type Department struct {
 	ID
@@ -17,4 +20,8 @@ type Department struct {
 
 func (department Department) GetUid() string {
 	return strconv.Itoa(int(department.ID.ID))
+}
+func FindDepartmentById(id uint) (department Department, err error) {
+	err = global.App.DB.Where("id = ?", id).Find(&department).Error
+	return
 }

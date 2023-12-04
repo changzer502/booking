@@ -1,6 +1,9 @@
 package models
 
-import "strconv"
+import (
+	"registration-booking/global"
+	"strconv"
+)
 
 type Card struct {
 	ID
@@ -18,4 +21,8 @@ type Card struct {
 
 func (user Card) GetUid() string {
 	return strconv.Itoa(int(user.ID.ID))
+}
+func FindCardById(id uint) (card Card, err error) {
+	err = global.App.DB.Where("id = ?", id).Find(&card).Error
+	return
 }
