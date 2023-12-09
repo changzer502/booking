@@ -207,6 +207,7 @@ func (scheduleService *scheduleService) BookingHistory(page request.Page, id str
 			Ticket:     ticket,
 			Card:       card,
 			Department: department,
+			Booking:    bookings[i],
 		})
 	}
 	return

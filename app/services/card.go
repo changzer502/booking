@@ -23,6 +23,14 @@ func (s *cardService) CreateCard(form request.Card, id string) (error, models.Ca
 		Relationship: form.Relationship,
 		Phone:        form.Phone,
 		Address:      form.Address,
+		Default:      form.Default,
+	}
+	if form.Default {
+		// 取消其他默认就诊卡
+		err := models.CancelAllCardDefaults(uint(userId))
+		if err != nil {
+			return err, models.Card{}
+		}
 	}
 	if err := global.App.DB.Create(&card).Error; err != nil {
 		return err, card
@@ -33,7 +41,7 @@ func (s *cardService) CreateCard(form request.Card, id string) (error, models.Ca
 // GetCardList 获取就诊卡列表
 func (s *cardService) GetCardList(id string) (error, []models.Card) {
 	var list []models.Card
-	if err := global.App.DB.Where("user_id = ?", id).Find(&list).Error; err != nil {
+	if err := global.App.DB.Where("user_id = ?", id).Order("`cards`.`default` DESC").Find(&list).Error; err != nil {
 		return err, list
 	}
 	return nil, list

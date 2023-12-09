@@ -15,6 +15,7 @@ type Card struct {
 	Relationship int    `json:"relationship" gorm:"not null;comment:与用户关系(0本人，1其他)"`
 	Phone        string `json:"phone" gorm:"not null;comment:联系电话"`
 	Address      string `json:"address" gorm:"not null;comment:联系地址"`
+	Default      bool   `json:"default" gorm:"not null;comment:是否默认"`
 	Timestamps
 	SoftDeletes
 }
@@ -25,4 +26,15 @@ func (user Card) GetUid() string {
 func FindCardById(id uint) (card Card, err error) {
 	err = global.App.DB.Where("id = ?", id).Find(&card).Error
 	return
+}
+func CancelAllCardDefaults(uid uint) error {
+	return global.App.DB.Model(&Card{}).Where("user_id = ?", uid).Update("default", false).Error
+}
+
+func CancelOtherCardDefaults(uid, cardId uint) error {
+	return global.App.DB.Model(&Card{}).Where("user_id = ? AND id != ?", uid, cardId).Update("default", false).Error
+}
+
+func CancelCardDefault(uid, cardId uint) error {
+	return global.App.DB.Model(&Card{}).Where("user_id = ? AND id = ?", uid, cardId).Update("default", false).Error
 }

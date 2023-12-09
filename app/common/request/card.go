@@ -1,7 +1,7 @@
 package request
 
 type Card struct {
-	Id           string `form:"id" json:"id"`
+	Id           int    `form:"id" json:"id"`
 	Name         string `form:"name" json:"name" binding:"required"`
 	IdType       string `form:"id_type" json:"id_type" binding:"required"`
 	IdNumber     string `form:"id_number" json:"id_number" binding:"required"`
@@ -9,6 +9,7 @@ type Card struct {
 	Relationship int    `form:"relationship" json:"relationship" `
 	Phone        string `form:"phone" json:"phone" binding:"required"`
 	Address      string `form:"address" json:"address" binding:"required"`
+	Default      bool   `form:"default" json:"default"`
 }
 
 func (login Card) GetMessages() ValidatorMessages {

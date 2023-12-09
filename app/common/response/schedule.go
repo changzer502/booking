@@ -29,4 +29,5 @@ type BookingInfo struct {
 	Schedule   models.Schedule   `json:"schedule"`
 	Ticket     models.Ticket     `json:"ticket"`
 	Department models.Department `json:"department"`
+	Booking    models.Booking    `json:"booking"`
 }

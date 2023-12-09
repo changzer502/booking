@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"registration-booking/app/common/request"
 	"registration-booking/app/common/response"
+	"registration-booking/app/models"
 	"registration-booking/app/services"
 )
 
@@ -51,6 +52,18 @@ func UpdateCard(c *gin.Context) {
 	if err, card := services.CardService.GetCardById(c.Param("id")); err != nil {
 		response.Fail(c, err.Error())
 	} else {
+		if form.Default {
+			// 取消其他默认就诊卡
+			err := models.CancelOtherCardDefaults(uint(card.UserId), card.ID.ID)
+			if err != nil {
+				return
+			}
+		} else if card.Default {
+			err := models.CancelCardDefault(uint(card.UserId), card.ID.ID)
+			if err != nil {
+				return
+			}
+		}
 		if err := services.CardService.UpdateCard(card, form); err != nil {
 			response.Fail(c, err.Error())
 		} else {
