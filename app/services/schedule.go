@@ -172,14 +172,14 @@ func (scheduleService *scheduleService) GetInfoByTicketId(ticketId string) (tick
 	ticketInfo.Doctor = doctor
 	return
 }
-func (scheduleService *scheduleService) BookingHistory(page request.Page, id string) (bookingHistoryRes *response.BookingHistoryRes, err error) {
+func (scheduleService *scheduleService) BookingHistory(page request.Page, id string) (res *response.PageData, err error) {
+	res = &response.PageData{}
 	uid, _ := strconv.Atoi(id)
-	bookings, count, err := models.FindBookingHistoryByUid(uint(uid), page.Page, page.PageSize)
+	bookings, count, err := models.FindBookingHistoryByUid(uint(uid), page.PageNo, page.PageSize)
 	if err != nil {
 		return nil, err
 	}
-	bookingHistoryRes = &response.BookingHistoryRes{}
-	bookingHistoryRes.Count = count
+	bookingInfs := make([]response.BookingInfo, 0)
 	for i := 0; i < len(bookings); i++ {
 		ticket, err := models.FindTicketsById(bookings[i].TicketId)
 		if err != nil {
@@ -201,7 +201,7 @@ func (scheduleService *scheduleService) BookingHistory(page request.Page, id str
 		if err != nil {
 			return nil, err
 		}
-		bookingHistoryRes.BookingInfos = append(bookingHistoryRes.BookingInfos, response.BookingInfo{
+		bookingInfs = append(bookingInfs, response.BookingInfo{
 			Doctor:     doctor,
 			Schedule:   schedule,
 			Ticket:     ticket,
@@ -210,6 +210,8 @@ func (scheduleService *scheduleService) BookingHistory(page request.Page, id str
 			Booking:    bookings[i],
 		})
 	}
+	res.PageData = bookingInfs
+	res.Total = count
 	return
 }
 

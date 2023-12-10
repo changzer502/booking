@@ -35,13 +35,13 @@ func (s *articleService) CreateArticle(form request.Article, id string) (error, 
 }
 
 func (s *articleService) GetArticleList(form request.Page) (error, *response.PageData) {
-	list, count, err := models.FindAllArticleByPage(form.Page, form.PageSize)
+	list, count, err := models.FindAllArticleByPage(form.PageNo, form.PageSize)
 	if err != nil {
 		return err, nil
 	}
 	return nil, &response.PageData{
-		List:  list,
-		Total: count,
+		PageData: list,
+		Total:    count,
 	}
 }
 

@@ -63,7 +63,7 @@ func (s *departmentService) CreateDepartment(department request.Department, id s
 
 func (s *departmentService) GetDepartmentPage(page request.Page) (error, *response.PageData) {
 	var list []models.Department
-	if err := global.App.DB.Where("parent_id != 0").Order("LENGTH(dept_name)").Offset((page.Page - 1) * page.PageSize).Limit(page.PageSize).Find(&list).Error; err != nil {
+	if err := global.App.DB.Where("parent_id != 0").Order("LENGTH(dept_name)").Offset((page.PageNo - 1) * page.PageSize).Limit(page.PageSize).Find(&list).Error; err != nil {
 		return err, nil
 	}
 	var total int64
@@ -72,7 +72,6 @@ func (s *departmentService) GetDepartmentPage(page request.Page) (error, *respon
 	}
 
 	return nil, &response.PageData{
-		List:     list,
 		Total:    total,
 		PageData: list,
 	}
