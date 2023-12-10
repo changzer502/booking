@@ -18,7 +18,7 @@ func JWTAuth(GuardName string) gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-		//tokenStr = tokenStr[len(services.TokenType)+1:]
+		tokenStr = tokenStr[len(services.TokenType)+1:]
 
 		// Token 解析校验
 		token, err := jwt.ParseWithClaims(tokenStr, &services.CustomClaims{}, func(token *jwt.Token) (interface{}, error) {

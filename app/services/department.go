@@ -72,8 +72,9 @@ func (s *departmentService) GetDepartmentPage(page request.Page) (error, *respon
 	}
 
 	return nil, &response.PageData{
-		List:  list,
-		Total: total,
+		List:     list,
+		Total:    total,
+		PageData: list,
 	}
 }
 

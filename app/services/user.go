@@ -7,6 +7,7 @@ import (
 	"github.com/goccy/go-json"
 	"net/http"
 	"registration-booking/app/common/request"
+	"registration-booking/app/common/response"
 	"registration-booking/app/models"
 	"registration-booking/global"
 	"registration-booking/utils"
@@ -48,6 +49,24 @@ func (userService *userService) GetUserInfo(id string) (err error, user models.U
 	if err != nil {
 		err = errors.New("数据不存在")
 	}
+	return
+}
+
+func (userService *userService) UserInfoAndRole(id string) (err error, user response.UserRes) {
+	intId, err := strconv.Atoi(id)
+	u := models.User{}
+	err = global.App.DB.First(&u, intId).Error
+	if err != nil {
+		err = errors.New("数据不存在")
+	}
+	role, err := models.GetRoleById(u.RoleId)
+	if err != nil {
+		return err, response.UserRes{}
+	}
+	user.ID = u.ID.ID
+	user.Nickname = u.Nickname
+	user.Role = append(user.Role, role.RoleKey)
+	user.AvatarUrl = u.AvatarUrl
 	return
 }
 

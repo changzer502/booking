@@ -37,6 +37,12 @@ func GetDepartmentPage(c *gin.Context) {
 		response.Fail(c, request.GetErrorMsg(form, err))
 		return
 	}
+	if form.PageNo != 0 {
+		form.Page = form.PageNo
+	}
+	if form.PageSize2 != 0 {
+		form.PageSize = form.PageSize2
+	}
 
 	if err, department := services.DepartmentService.GetDepartmentPage(form); err != nil {
 		response.Fail(c, err.Error())

@@ -1,13 +1,14 @@
 package request
 
 type Page struct {
-	Page     int `form:"page" json:"page" binding:"required"`
-	PageSize int `form:"page_size" json:"page_size" binding:"required"`
+	Page      int `form:"page" json:"page"`
+	PageNo    int `form:"pageNo" json:"pageNo"`
+	PageSize  int `form:"page_size" json:"page_size"`
+	PageSize2 int `form:"pageSize" json:"pageSize" `
 }
 
 func (page Page) GetMessages() ValidatorMessages {
 	return ValidatorMessages{
-		"page.required":      "页码不能为空",
 		"page_size.required": "每页数量不能为空",
 	}
 }

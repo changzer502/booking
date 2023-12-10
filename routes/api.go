@@ -18,6 +18,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	{
 		authRouter.POST("/auth/info", handler.Info)
 		authRouter.POST("/auth/logout", handler.Logout)
+		authRouter.GET("/user", handler.UserInfoAndRole)
 		authRouter.POST("/image_upload", handler.ImageUpload)
 
 		card := authRouter.Group("/card")
@@ -58,4 +59,13 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	scheduleAuth.GET("/booking/history/:booking_id", handler.GetBookingHistoryById)
 	schedule := authRouter.Group("/schedule")
 	schedule.POST("/list", handler.GetScheduleList)
+
+	//文章
+	article := authRouter.Group("/article")
+	article.POST("/list", handler.GetArticleList)
+	article.GET("/:id", handler.GetArticleById)
+	articleAuth := article.Group("/", middleware.JWTAuth(services.AppGuardName))
+	articleAuth.POST("/create", handler.CreateArticle)
+	articleAuth.POST("/update", handler.UpdateArticle)
+	articleAuth.POST("/delete/:id", handler.DeleteArticle)
 }

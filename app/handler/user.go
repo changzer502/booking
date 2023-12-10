@@ -51,6 +51,15 @@ func Info(c *gin.Context) {
 	response.Success(c, user)
 }
 
+func UserInfoAndRole(c *gin.Context) {
+	err, user := services.UserService.UserInfoAndRole(c.Keys["id"].(string))
+	if err != nil {
+		response.Fail(c, err.Error())
+		return
+	}
+	response.Success(c, user)
+}
+
 func Logout(c *gin.Context) {
 	err := services.JwtService.JoinBlackList(c.Keys["token"].(*jwt.Token))
 	if err != nil {
