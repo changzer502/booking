@@ -38,3 +38,8 @@ func CancelOtherCardDefaults(uid, cardId uint) error {
 func CancelCardDefault(uid, cardId uint) error {
 	return global.App.DB.Model(&Card{}).Where("user_id = ? AND id = ?", uid, cardId).Update("default", false).Error
 }
+
+func FindAllCardListByPage(page, pageSize int, query string) (cards []Card, total int64, err error) {
+	err = global.App.DB.Where("1 = 1" + query).Offset((page - 1) * pageSize).Limit(pageSize).Find(&cards).Count(&total).Error
+	return
+}

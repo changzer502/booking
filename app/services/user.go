@@ -41,6 +41,14 @@ func (userService *userService) Login(params request.Login) (err error, user *mo
 	}
 	return
 }
+func (userService *userService) GetUserById(id string) (err error, user *models.User) {
+	uid, _ := strconv.Atoi(id)
+	user, err = models.FindUserById(uint(uid))
+	if err != nil {
+		err = errors.New("用户不存在")
+	}
+	return
+}
 
 // GetUserInfo 获取用户信息
 func (userService *userService) GetUserInfo(id string) (err error, user models.User) {
@@ -208,10 +216,82 @@ func (userService *userService) GetDoctorList(departmentId string) (err error, u
 	return
 }
 
+func (userService *userService) GetAllDoctorList(page request.GetDoctorListReq) (err error, total int64, doctors []response.DoctorRes) {
+	query := ""
+	if page.Query != "" {
+		query = " and nickname like '%" + page.Query + "%'"
+	}
+	deptIds := make([]int, 0)
+	if page.Dept > 0 {
+		depts, err := models.FindChildrenByDeptId(page.Dept)
+		if err != nil {
+			return err, 0, nil
+		}
+		deptIds = append(deptIds, int(page.Dept))
+		for _, dept := range depts {
+			deptIds = append(deptIds, int(dept.ID.ID))
+		}
+	}
+
+	doc, total, err := models.FindAllDoctorByPage(page.PageNo, page.PageSize, query, deptIds)
+	if err != nil {
+		return err, 0, nil
+	}
+	for _, doctor := range doc {
+		dept, err := models.FindDepartmentById(doctor.DepartmentID)
+		if err != nil {
+			return err, 0, nil
+		}
+		info := request.Introduce{}
+		err = json.Unmarshal([]byte(doctor.Introduce), &info)
+		if err != nil {
+			return err, 0, nil
+		}
+		doctors = append(doctors, response.DoctorRes{
+			User:           doctor,
+			DepartmentName: dept.DeptName,
+			Introduce:      info,
+		})
+	}
+	return
+}
+
 func (userService *userService) GetDoctorById(id string) (err error, user models.User) {
 	err = global.App.DB.Where("id = ? and role_id = ?", id, 2).Find(&user).Error
 	if user.ID.ID == 0 {
 		err = errors.New("数据不存在")
 	}
+	return
+}
+func (userService *userService) GetDiseaseList(page request.Page) (err error, total int64, users []models.User) {
+	query := ""
+	if page.Query != "" {
+		query = " and nickname like '%" + page.Query + "%'"
+	}
+	users, total, err = models.FindDiseaseByPage(page.PageNo, page.PageSize, query)
+	if err != nil {
+		return err, 0, nil
+	}
+	return
+}
+
+func (userService *userService) UpdateUser(user models.User) (err error) {
+	err = global.App.DB.Updates(&user).Error
+	return
+}
+
+func (userService *userService) UpdateDoctor(doctor request.DoctorReq) (err error) {
+	user := doctor.User
+	marshal, err := json.Marshal(doctor.Introduce)
+	if err != nil {
+		return err
+	}
+	user.Introduce = string(marshal)
+	err = models.UpdateUser(user)
+	return
+}
+
+func (userService *userService) DeleteUser(id string) (err error) {
+	err = global.App.DB.Delete(&models.User{}, id).Error
 	return
 }

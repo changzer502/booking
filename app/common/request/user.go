@@ -1,5 +1,7 @@
 package request
 
+import "registration-booking/app/models"
+
 type Register struct {
 	Nickname  string `form:"nickname" json:"nickname" binding:"required"`
 	Gender    int    `form:"gender" json:"gender"`
@@ -58,4 +60,15 @@ type Introduce struct {
 	WorkExperience        string `form:"work_experience" json:"work_experience" binding:"required"`
 	ResearchDirection     string `form:"research_direction" json:"research_direction" binding:"required"`
 	AcademicPositions     string `form:"academic_positions" json:"academic_positions" binding:"required"`
+}
+
+type DoctorReq struct {
+	models.User
+	DepartmentName string `json:"dept_name"`
+	Introduce
+}
+
+type GetDoctorListReq struct {
+	Page
+	Dept uint `form:"dept" json:"dept"`
 }

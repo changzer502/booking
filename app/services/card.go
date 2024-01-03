@@ -47,6 +47,18 @@ func (s *cardService) GetCardList(id string) (error, []models.Card) {
 	return nil, list
 }
 
+func (s *cardService) GetAllCardList(page request.Page) (error, int64, []models.Card) {
+	query := ""
+	if page.Query != "" {
+		query = " and user_id = " + page.Query
+	}
+	byPage, total, err := models.FindAllCardListByPage(page.PageNo, page.PageSize, query)
+	if err != nil {
+		return err, 0, nil
+	}
+	return nil, total, byPage
+}
+
 // GetCardById 获取就诊卡详情
 func (s *cardService) GetCardById(id string) (error, models.Card) {
 	var card models.Card

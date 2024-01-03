@@ -55,10 +55,10 @@ storage:
       is_ssl: true # 是否使用 https 协议
       is_private: false # 是否私有读
     qi_niu:
-      access_key:
-      bucket:
-      domain:
-      secret_key:
+      access_key: ZoVQAEm_koqx4x2dE7nJrGR0VEqPOeOCons5ibmp
+      bucket: img--cloud
+      domain: http://images.changzer.cn
+      secret_key: 2vLLFqi0LwD4IEIIugnv5hMK57aKF-QlFLRiDsiL
       is_ssl: true
       is_private: false
 

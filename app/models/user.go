@@ -33,3 +33,29 @@ func FindDoctorById(id uint) (doctor User, err error) {
 	err = global.App.DB.Where("id = ? AND role_id = ?", id, 2).Find(&doctor).Error
 	return
 }
+
+func FindUserById(id uint) (user *User, err error) {
+	user = &User{}
+	err = global.App.DB.Where("id = ?", id).First(&user).Error
+	return
+}
+
+func FindDiseaseByPage(page, pageSize int, query string) (users []User, total int64, err error) {
+	err = global.App.DB.Where("role_id = 1" + query).Offset((page - 1) * pageSize).Limit(pageSize).Find(&users).Count(&total).Error
+	return
+}
+
+func FindAllDoctorByPage(page, pageSize int, query string, depts []int) (users []User, total int64, err error) {
+	if len(depts) == 0 {
+		err = global.App.DB.Where("role_id = 2" + query).Offset((page - 1) * pageSize).Limit(pageSize).Find(&users).Count(&total).Error
+	} else {
+		err = global.App.DB.Where("role_id = 2"+query+" AND department_id IN (?)", depts).Offset((page - 1) * pageSize).Limit(pageSize).Find(&users).Count(&total).Error
+	}
+	return
+
+}
+
+func UpdateUser(user User) (err error) {
+	err = global.App.DB.Updates(&user).Error
+	return
+}

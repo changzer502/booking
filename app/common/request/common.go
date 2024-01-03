@@ -1,8 +1,9 @@
 package request
 
 type Page struct {
-	PageNo   int `form:"pageNo" json:"pageNo" binding:"required"`
-	PageSize int `form:"pageSize" json:"pageSize"  binding:"required"`
+	Query    string `json:"query"`
+	PageNo   int    `form:"pageNo" json:"pageNo" binding:"required"`
+	PageSize int    `form:"pageSize" json:"pageSize"  binding:"required"`
 }
 
 func (page Page) GetMessages() ValidatorMessages {

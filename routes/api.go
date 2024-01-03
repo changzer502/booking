@@ -16,6 +16,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	router.POST("/auth/wx_login", handler.WxLogin)
 	authRouter := router.Group("", middleware.JWTAuth(services.AppGuardName))
 	{
+		authRouter.POST("/auth/refreshToken", handler.RefreshToken)
 		authRouter.POST("/auth/info", handler.Info)
 		authRouter.POST("/auth/logout", handler.Logout)
 		authRouter.GET("/user", handler.UserInfoAndRole)
@@ -25,6 +26,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 		{
 			card.POST("/create", handler.CreateCard)
 			card.POST("/list", handler.GetCardList)
+			card.POST("/all_list", handler.GetAllCardList)
 			card.GET("/detail/:id", handler.GetCardById)
 			card.POST("/update/:id", handler.UpdateCard)
 			card.POST("/delete/:id", handler.DeleteCard)
@@ -35,18 +37,27 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	{
 		department.GET("/list", handler.GetDepartmentList)
 		department.POST("/page", handler.GetDepartmentPage)
+		department.POST("/parent/page", handler.GetParentDepartmentPage)
 		department.GET("/:id", handler.GetDepartmentById)
 		authDepartment := department.Group("/", middleware.JWTAuth(services.AppGuardName))
 		{
 			authDepartment.POST("/create", handler.CreateDepartment)
+			authDepartment.POST("/update", handler.UpdateDepartment)
+			authDepartment.POST("/delete/:department_id", handler.DeleteDepartment)
 		}
 	}
 
 	admin := authRouter.Group("/admin", middleware.JWTAuth(services.AppGuardName))
 	admin.POST("/create_doctor", handler.CreateDoctor)
+	admin.POST("/disease_list", handler.GetDiseaseList)
 	doctor := router.Group("/doctor")
 	doctor.GET("/list/:department_id", handler.GetDoctorList)
+	doctor.POST("/list", handler.GetAllDoctorList)
 	doctor.GET("/:id", handler.GetDoctorById)
+	user := authRouter.Group("/user")
+	user.POST("/update", handler.UpdateUser)
+	user.POST("/update/doctor", handler.UpdateDoctor)
+	user.POST("/delete/:id", handler.DeleteUser)
 
 	// 预约
 	scheduleAuth := authRouter.Group("/schedule", middleware.JWTAuth(services.AppGuardName))

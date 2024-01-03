@@ -8,3 +8,8 @@ type Article struct {
 	Content      string `form:"content" json:"content"`
 	DepartmentId uint   `form:"department_id" json:"department_id"`
 }
+
+type GetArticleListReq struct {
+	Page
+	Dept uint `form:"dept" json:"dept"`
+}

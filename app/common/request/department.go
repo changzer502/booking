@@ -1,6 +1,7 @@
 package request
 
 type Department struct {
+	Id           uint   `form:"id" json:"id" `
 	DeptName     string `form:"dept_name" json:"dept_name" binding:"required" `
 	Icon         string `form:"icon" json:"icon" binding:"required" `
 	ParentId     uint   `form:"parent_id" json:"parent_id"  `
@@ -13,4 +14,9 @@ func (department Department) GetMessages() ValidatorMessages {
 		"icon.required":         "科室图标不能为空",
 		"introduction.required": "科室介绍不能为空",
 	}
+}
+
+type GetDepartmentListReq struct {
+	Page
+	Dept uint `form:"dept" json:"dept" `
 }

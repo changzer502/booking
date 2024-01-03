@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"registration-booking/app/common/request"
 	"registration-booking/app/common/response"
+	"registration-booking/app/models"
 	"registration-booking/app/services"
 )
 
@@ -31,6 +32,19 @@ func Login(c *gin.Context) {
 	}
 
 	if err, user := services.UserService.Login(form); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		tokenData, err, _ := services.JwtService.CreateToken(services.AppGuardName, user)
+		if err != nil {
+			response.Fail(c, err.Error())
+			return
+		}
+		response.Success(c, tokenData)
+	}
+}
+
+func RefreshToken(c *gin.Context) {
+	if err, user := services.UserService.GetUserById(c.Keys["id"].(string)); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		tokenData, err, _ := services.JwtService.CreateToken(services.AppGuardName, user)
@@ -111,10 +125,77 @@ func GetDoctorList(c *gin.Context) {
 	}
 }
 
+func GetAllDoctorList(c *gin.Context) {
+	var form request.GetDoctorListReq
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+
+	if err, total, res := services.UserService.GetAllDoctorList(form); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, response.PageData{
+			PageData: res,
+			Total:    total,
+		})
+	}
+}
+
 func GetDoctorById(c *gin.Context) {
 	if err, list := services.UserService.GetDoctorById(c.Param("id")); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		response.Success(c, list)
+	}
+}
+
+func GetDiseaseList(c *gin.Context) {
+	var form request.Page
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+	if err, total, list := services.UserService.GetDiseaseList(form); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, response.PageData{
+			PageData: list,
+			Total:    total,
+		})
+	}
+}
+
+func UpdateUser(c *gin.Context) {
+	var user models.User
+	if err := c.ShouldBindJSON(&user); err != nil {
+		response.Fail(c, request.GetErrorMsg(user, err))
+		return
+	}
+	if err := services.UserService.UpdateUser(user); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, nil)
+	}
+}
+
+func UpdateDoctor(c *gin.Context) {
+	var user request.DoctorReq
+	if err := c.ShouldBindJSON(&user); err != nil {
+		response.Fail(c, request.GetErrorMsg(user, err))
+		return
+	}
+	if err := services.UserService.UpdateDoctor(user); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, nil)
+	}
+}
+
+func DeleteUser(c *gin.Context) {
+	if err := services.UserService.DeleteUser(c.Param("id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, nil)
 	}
 }

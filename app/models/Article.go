@@ -28,8 +28,13 @@ func FindArticleByDepartmentAndPage(id uint, page, pageSize int) (article []Arti
 	return
 }
 
-func FindAllArticleByPage(page, pageSize int) (article []Article, count int64, err error) {
-	err = global.App.DB.Order("created_at DESC").Offset((page - 1) * pageSize).Limit(pageSize).Find(&article).Count(&count).Error
+func FindAllArticleByPage(page, pageSize int, query string, deptIds []int) (article []Article, count int64, err error) {
+	if len(deptIds) == 0 {
+		err = global.App.DB.Where("1 = 1" + query).Order("created_at DESC").Offset((page - 1) * pageSize).Limit(pageSize).Find(&article).Count(&count).Error
+	} else {
+		err = global.App.DB.Where("1 = 1"+query+" AND department_id IN (?)", deptIds).Order("created_at DESC").Offset((page - 1) * pageSize).Limit(pageSize).Find(&article).Count(&count).Error
+
+	}
 	return
 }
 func CreateArticle(article Article) (err error) {

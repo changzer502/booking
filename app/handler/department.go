@@ -32,7 +32,7 @@ func CreateDepartment(c *gin.Context) {
 }
 
 func GetDepartmentPage(c *gin.Context) {
-	var form request.Page
+	var form request.GetDepartmentListReq
 	if err := c.ShouldBindJSON(&form); err != nil {
 		response.Fail(c, request.GetErrorMsg(form, err))
 		return
@@ -45,8 +45,45 @@ func GetDepartmentPage(c *gin.Context) {
 	}
 }
 
+func GetParentDepartmentPage(c *gin.Context) {
+	var form request.Page
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+
+	if err, department := services.DepartmentService.GetParentDepartmentPage(form); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, department)
+	}
+}
+
 func GetDepartmentById(c *gin.Context) {
 	if err, department := services.DepartmentService.GetDepartmentById(c.Param("id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, department)
+	}
+}
+
+func UpdateDepartment(c *gin.Context) {
+	var form request.Department
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+
+	if err, department := services.DepartmentService.UpdateDepartment(form, c.Keys["id"].(string)); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, department)
+	}
+}
+
+func DeleteDepartment(c *gin.Context) {
+
+	if err, department := services.DepartmentService.DeleteDepartment(c.Param("department_id"), c.Keys["id"].(string)); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		response.Success(c, department)

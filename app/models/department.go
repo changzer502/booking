@@ -21,7 +21,19 @@ type Department struct {
 func (department Department) GetUid() string {
 	return strconv.Itoa(int(department.ID.ID))
 }
+func FindChildrenByDeptId(id uint) (department []Department, err error) {
+	err = global.App.DB.Where("parent_id = ?", id).Find(&department).Error
+	return
+}
 func FindDepartmentById(id uint) (department Department, err error) {
 	err = global.App.DB.Where("id = ?", id).Find(&department).Error
+	return
+}
+func UpdateDepartment(department Department) (err error) {
+	err = global.App.DB.Model(&department).Updates(&department).Error
+	return
+}
+func DeleteDepartment(department Department) (err error) {
+	err = global.App.DB.Delete(&department).Error
 	return
 }

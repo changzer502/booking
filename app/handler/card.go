@@ -25,10 +25,24 @@ func CreateCard(c *gin.Context) {
 
 // GetCardList 获取就诊卡列表
 func GetCardList(c *gin.Context) {
+
 	if err, list := services.CardService.GetCardList(c.Keys["id"].(string)); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		response.Success(c, list)
+	}
+}
+
+func GetAllCardList(c *gin.Context) {
+	var form request.Page
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+	if err, total, list := services.CardService.GetAllCardList(form); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, response.PageData{PageData: list, Total: total})
 	}
 }
 

@@ -22,7 +22,7 @@ func CreateArticle(c *gin.Context) {
 }
 
 func GetArticleList(c *gin.Context) {
-	var form request.Page
+	var form request.GetArticleListReq
 	if err := c.ShouldBindJSON(&form); err != nil {
 		response.Fail(c, request.GetErrorMsg(form, err))
 		return
