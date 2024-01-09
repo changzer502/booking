@@ -34,6 +34,62 @@ func (scheduleService *scheduleService) CreateSchedule(params request.CreateSche
 	return
 }
 
+const (
+	outdated = iota
+	normal
+	waiting
+)
+
+func (scheduleService *scheduleService) GetScheduleListByDept(scheduleReq request.ScheduleReq) ([]response.ScheduleRes, error) {
+	doctorList, err := models.FindDoctorsByDepartmentId(strconv.Itoa(scheduleReq.Dept))
+	if err != nil {
+		return nil, err
+	}
+	scheduleList := make([]response.ScheduleRes, 0)
+
+	t, err := time.Parse("2006-01-02", scheduleReq.Date)
+	if err != nil {
+		return nil, err
+	}
+	for i := 0; i < len(doctorList); i++ {
+		schedules, err := models.FindAllSchedulesByDoctorId(strconv.Itoa(int(doctorList[i].ID.ID)))
+		if err != nil {
+			return nil, err
+		}
+		scheduleData := make([]response.ScheduleAndTicket, 0)
+		for j := 0; j < len(schedules); j++ {
+			d := schedules[j].Week
+			if d == 0 {
+				d = 7
+			}
+			day := t.AddDate(0, 0, d-int(t.Weekday())).Format("2006-01-02")
+			// 查询票数
+			ticket, err := models.FindTicketsByScheduleId(schedules[j].ID.ID, day)
+			if err != nil {
+				return nil, err
+			}
+			status := normal
+			now, _ := time.Parse("2006-01-02", time.Now().Format("2006-01-02"))
+			ticketTime, _ := time.Parse("2006-01-02", ticket.Day)
+			if ticket.Num == 0 || ticketTime.Before(now) {
+				status = outdated
+			} else if ticketTime.After(now) {
+				status = waiting
+			}
+			scheduleData = append(scheduleData, response.ScheduleAndTicket{
+				Schedule:     schedules[j],
+				Ticket:       ticket,
+				TicketStatus: status,
+			})
+		}
+		scheduleList = append(scheduleList, response.ScheduleRes{
+			Doctor:    doctorList[i],
+			Schedules: scheduleData,
+		})
+	}
+	return scheduleList, nil
+}
+
 func (scheduleService *scheduleService) GetScheduleList(getScheduleListReq request.GetScheduleListReq) (err error, scheduleList []response.ScheduleList) {
 	// 查询科室下的排班医生
 	schedules, err := models.FindSchedulesByDepartmentID(getScheduleListReq.DepartmentId, getScheduleListReq.Week)

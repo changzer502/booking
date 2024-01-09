@@ -24,6 +24,10 @@ func FindSchedulesByDoctorId(doctorId, day string) (ScheduleList []Schedule, err
 	err = global.App.DB.Where("doctor_id = ? AND day = ?", doctorId, day).Find(&ScheduleList).Error
 	return
 }
+func FindAllSchedulesByDoctorId(doctorId string) (ScheduleList []Schedule, err error) {
+	err = global.App.DB.Where("doctor_id = ?", doctorId).Find(&ScheduleList).Error
+	return
+}
 func FindSchedulesByDepartmentID(departmentId uint, week int) (ScheduleList []Schedule, err error) {
 	err = global.App.DB.Where("department_id = ? AND week = ?", departmentId, week).Find(&ScheduleList).Error
 	return

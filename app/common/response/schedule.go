@@ -7,9 +7,10 @@ type ScheduleList struct {
 	ScheduleAndTicketList []ScheduleAndTicket `json:"schedule_and_ticket_list"`
 }
 type ScheduleAndTicket struct {
-	Schedule models.Schedule `json:"schedule"`
-	Ticket   models.Ticket   `json:"ticket"`
-	Status   bool            `json:"status"`
+	Schedule     models.Schedule `json:"schedule"`
+	Ticket       models.Ticket   `json:"ticket"`
+	Status       bool            `json:"status"`
+	TicketStatus int             `json:"ticket_status"`
 }
 
 type TicketInfo struct {
@@ -30,4 +31,9 @@ type BookingInfo struct {
 	Ticket     models.Ticket     `json:"ticket"`
 	Department models.Department `json:"department"`
 	Booking    models.Booking    `json:"booking"`
+}
+
+type ScheduleRes struct {
+	Doctor    models.User         `json:"doctor"`
+	Schedules []ScheduleAndTicket `json:"schedules"`
 }

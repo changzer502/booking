@@ -68,6 +68,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 
 	scheduleAuth.POST("/booking/history", handler.BookingHistory)
 	scheduleAuth.GET("/booking/history/:booking_id", handler.GetBookingHistoryById)
+	scheduleAuth.POST("/list/all", handler.GetScheduleListByDept)
 	schedule := authRouter.Group("/schedule")
 	schedule.POST("/list", handler.GetScheduleList)
 

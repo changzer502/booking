@@ -27,3 +27,7 @@ type BookingReq struct {
 	TicketId uint `form:"ticket_id" json:"ticket_id" binding:"required"`
 	CardId   uint `form:"card_id" json:"card_id" binding:"required"`
 }
+type ScheduleReq struct {
+	Dept int    `form:"dept" json:"dept" binding:"required"`
+	Date string `form:"date" json:"date" binding:"required"`
+}

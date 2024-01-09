@@ -35,6 +35,19 @@ func CreateTicket(c *gin.Context) {
 	}
 }
 
+func GetScheduleListByDept(c *gin.Context) {
+	var scheduleReq request.ScheduleReq
+	if err := c.ShouldBindJSON(&scheduleReq); err != nil {
+		response.Fail(c, request.GetErrorMsg(scheduleReq, err))
+		return
+	}
+	if scheduleList, err := services.ScheduleService.GetScheduleListByDept(scheduleReq); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, scheduleList)
+	}
+}
+
 func GetScheduleList(c *gin.Context) {
 	var form request.GetScheduleListReq
 	if err := c.ShouldBindJSON(&form); err != nil {
