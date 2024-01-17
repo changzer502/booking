@@ -40,12 +40,20 @@ const (
 	waiting
 )
 
-func (scheduleService *scheduleService) GetScheduleListByDept(scheduleReq request.ScheduleReq) ([]response.ScheduleRes, error) {
-	doctorList, err := models.FindDoctorsByDepartmentId(strconv.Itoa(scheduleReq.Dept))
-	if err != nil {
-		return nil, err
+func (scheduleService *scheduleService) GetScheduleListByDept(scheduleReq request.ScheduleReq) (scheduleList []response.ScheduleRes, err error) {
+	doctorList := make([]models.User, 0)
+	if scheduleReq.DoctorId == 0 {
+		doctorList, err = models.FindDoctorsByDepartmentId(strconv.Itoa(scheduleReq.Dept))
+		if err != nil {
+			return nil, err
+		}
+	} else {
+		doctor, err := models.FindDoctorById(scheduleReq.DoctorId)
+		if err != nil {
+			return nil, err
+		}
+		doctorList = append(doctorList, doctor)
 	}
-	scheduleList := make([]response.ScheduleRes, 0)
 
 	t, err := time.Parse("2006-01-02", scheduleReq.Date)
 	if err != nil {
@@ -153,6 +161,7 @@ func (scheduleService *scheduleService) CreateTicket(params request.CreateTicket
 		ScheduleId: params.ScheduleId,
 		Day:        params.Day,
 		Num:        params.Num,
+		Total:      params.Num,
 		Version:    1,
 		Timestamps: models.Timestamps{
 			CreatedBy: uint(uid),
@@ -204,6 +213,7 @@ func (scheduleService *scheduleService) Booking(getScheduleListReq request.Booki
 		CardId:   getScheduleListReq.CardId,
 		TicketId: ticket.ID.ID,
 		UserId:   uint(uid),
+		Rank:     ticket.Total - ticket.Num,
 	}
 	tx.Create(&booking)
 	return
@@ -232,6 +242,49 @@ func (scheduleService *scheduleService) BookingHistory(page request.Page, id str
 	res = &response.PageData{}
 	uid, _ := strconv.Atoi(id)
 	bookings, count, err := models.FindBookingHistoryByUid(uint(uid), page.PageNo, page.PageSize)
+	if err != nil {
+		return nil, err
+	}
+	bookingInfs := make([]response.BookingInfo, 0)
+	for i := 0; i < len(bookings); i++ {
+		ticket, err := models.FindTicketsById(bookings[i].TicketId)
+		if err != nil {
+			return nil, err
+		}
+		schedule, err := models.FindScheduleByID(ticket.ScheduleId)
+		if err != nil {
+			return nil, err
+		}
+		doctor, err := models.FindDoctorById(schedule.DoctorId)
+		if err != nil {
+			return nil, err
+		}
+		department, err := models.FindDepartmentById(schedule.DepartmentId)
+		if err != nil {
+			return nil, err
+		}
+		card, err := models.FindCardById(bookings[i].CardId)
+		if err != nil {
+			return nil, err
+		}
+		bookingInfs = append(bookingInfs, response.BookingInfo{
+			Doctor:     doctor,
+			Schedule:   schedule,
+			Ticket:     ticket,
+			Card:       card,
+			Department: department,
+			Booking:    bookings[i],
+		})
+	}
+	res.PageData = bookingInfs
+	res.Total = count
+	return
+}
+
+func (scheduleService *scheduleService) BookingHistoryByDept(page request.BookingHistoryByDeptReq, dept_id string) (res *response.PageData, err error) {
+	res = &response.PageData{}
+	deptId, _ := strconv.Atoi(dept_id)
+	bookings, count, err := models.FindBookingHistoryByDeptId(uint(deptId), page.DoctorId, page.Date, page.PageNo, page.PageSize)
 	if err != nil {
 		return nil, err
 	}
@@ -304,5 +357,41 @@ func (scheduleService *scheduleService) GetBookingHistoryById(bookingId string, 
 		Card:       card,
 		Department: department,
 	}
+	return
+}
+func (scheduleService *scheduleService) GetBookingStatisticsByDept(deptId string, id string) (month [][]int64, err error) {
+	year := time.Now().Year()
+	temp := make([]int64, 0)
+	// 今年
+	for i := 1; i <= 12; i++ {
+		m := ""
+		m += strconv.Itoa(year) + "-"
+		if i < 10 {
+			m += "0"
+		}
+		m += strconv.Itoa(i)
+		count, err := models.FindBookingStatisticsByDept(deptId, id, m)
+		if err != nil {
+			return nil, err
+		}
+		temp = append(temp, count)
+	}
+	month = append(month, temp)
+	// 去年
+	temp = make([]int64, 0)
+	for i := 1; i <= 12; i++ {
+		m := ""
+		m += strconv.Itoa(year-1) + "-"
+		if i < 10 {
+			m += "0"
+		}
+		m += strconv.Itoa(i)
+		count, err := models.FindBookingStatisticsByDept(deptId, id, m)
+		if err != nil {
+			return nil, err
+		}
+		temp = append(temp, count)
+	}
+	month = append(month, temp)
 	return
 }

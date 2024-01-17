@@ -28,6 +28,12 @@ type BookingReq struct {
 	CardId   uint `form:"card_id" json:"card_id" binding:"required"`
 }
 type ScheduleReq struct {
-	Dept int    `form:"dept" json:"dept" binding:"required"`
-	Date string `form:"date" json:"date" binding:"required"`
+	Dept     int    `form:"dept" json:"dept" binding:"required"`
+	Date     string `form:"date" json:"date" binding:"required"`
+	DoctorId uint   `form:"doctor_id" json:"doctor_id" `
+}
+type BookingHistoryByDeptReq struct {
+	Page
+	DoctorId uint   `form:"doctor_id" json:"doctor_id" `
+	Date     string `form:"date" json:"date" `
 }

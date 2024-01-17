@@ -75,6 +75,7 @@ func (userService *userService) UserInfoAndRole(id string) (err error, user resp
 	user.Nickname = u.Nickname
 	user.Role = append(user.Role, role.RoleKey)
 	user.AvatarUrl = u.AvatarUrl
+	user.DepartmentId = u.DepartmentID
 	return
 }
 

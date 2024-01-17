@@ -11,6 +11,7 @@ type Ticket struct {
 	Day        string `json:"day" gorm:"index:comment:日期"`
 	Num        int    `json:"num" gorm:"comment:可预约人数"`
 	Version    int    `json:"version" gorm:"default:1;comment:版本号"`
+	Total      int    `json:"total" gorm:"comment:总人数"`
 	Timestamps
 	SoftDeletes
 }

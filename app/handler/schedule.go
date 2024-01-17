@@ -97,10 +97,31 @@ func BookingHistory(c *gin.Context) {
 	}
 }
 
+func BookingHistoryByDept(c *gin.Context) {
+	var form request.BookingHistoryByDeptReq
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+	if bookingHistory, err := services.ScheduleService.BookingHistoryByDept(form, c.Param("department_id")); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, bookingHistory)
+	}
+}
+
 func GetBookingHistoryById(c *gin.Context) {
 	if ticketInfo, err := services.ScheduleService.GetBookingHistoryById(c.Param("booking_id"), c.Keys["id"].(string)); err != nil {
 		response.Fail(c, err.Error())
 	} else {
 		response.Success(c, ticketInfo)
+	}
+}
+
+func GetBookingStatisticsByDept(c *gin.Context) {
+	if Statistics, err := services.ScheduleService.GetBookingStatisticsByDept(c.Param("department_id"), c.Keys["id"].(string)); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, Statistics)
 	}
 }
