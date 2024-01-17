@@ -82,4 +82,7 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	articleAuth.POST("/create", handler.CreateArticle)
 	articleAuth.POST("/update", handler.UpdateArticle)
 	articleAuth.POST("/delete/:id", handler.DeleteArticle)
+
+	messageAuth := authRouter.Group("/letter", middleware.JWTAuth(services.AppGuardName))
+	messageAuth.POST("/list", handler.GetLetterList)
 }
