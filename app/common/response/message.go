@@ -13,3 +13,8 @@ type Conversations struct {
 	LetterCount  int64          `json:"letter_count"`
 	Target       models.User    `json:"target"`
 }
+
+type UnreadCountRes struct {
+	LetterUnreadCount int64 `json:"letter_unread_count"`
+	NoticeUnreadCount int64 `json:"notice_unread_count"`
+}

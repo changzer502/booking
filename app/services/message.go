@@ -48,8 +48,25 @@ func (service *messageService) GetLetterList(uid string, pageNo, pageSize int) (
 
 		conversations = append(conversations, conversation)
 	}
+
 	return &response.ConversationsRes{
 		Count:         count,
 		Conversations: conversations,
+	}, nil
+}
+
+func (service *messageService) UnreadCount(uid string) (*response.UnreadCountRes, error) {
+	//查询未读信息数量
+	letterUnreadCount, err := models.FindLetterUnreadCount(uid, "")
+	if err != nil {
+		return nil, err
+	}
+	noticeUnreadCount, err := models.FindNoticeUnreadCount(uid, "")
+	if err != nil {
+		return nil, err
+	}
+	return &response.UnreadCountRes{
+		LetterUnreadCount: letterUnreadCount,
+		NoticeUnreadCount: noticeUnreadCount,
 	}, nil
 }

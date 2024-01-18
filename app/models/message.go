@@ -21,19 +21,28 @@ func (message Message) GetUid() string {
 }
 
 func FindConversations(uid string, page, pageSize int) (messages []Message, count int64, err error) {
-	err = global.App.DB.Where("id in (select max(id) from message where status != 2 and from_id != 1  and (from_id = ? or to_id = ? group by conversation_id)", uid, uid).Order("id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&messages).Count(&count).Error
+	err = global.App.DB.Where("id in (select max(id) from messages where status != 2 and from_id != 1  and (from_id = ? or to_id = ?) group by conversation_id) ", uid, uid).Order("messages.id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&messages).Count(&count).Error
 	return
 }
 
 func FindLetterUnreadCount(uid, countonversationId string) (count int64, err error) {
 	query := ""
 	if countonversationId != "" {
-		query += "and conversation_id = `" + countonversationId + "`"
+		query += "and conversation_id = '" + countonversationId + "'"
 	}
 	err = global.App.DB.Table("messages").Where("status = 0 and from_id != 1 and to_id = ? "+query, uid).Count(&count).Error
 	return
 }
 func FindLetterCount(countonversationId string) (count int64, err error) {
 	err = global.App.DB.Table("messages").Where("status != 2 and from_id != 1 and conversation_id = ?", countonversationId).Count(&count).Error
+	return
+}
+
+func FindNoticeUnreadCount(uid, topic string) (count int64, err error) {
+	query := ""
+	if topic != "" {
+		query += "and conversation_id = '" + topic + "'"
+	}
+	err = global.App.DB.Table("messages").Where("status = 0 and from_id = 1 and to_id = ? "+query, uid).Count(&count).Error
 	return
 }
