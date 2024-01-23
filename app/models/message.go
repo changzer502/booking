@@ -24,6 +24,10 @@ const (
 func (message Message) GetUid() string {
 	return strconv.Itoa(int(message.ID.ID))
 }
+func (message Message) CreateMessage() (err error) {
+	err = global.App.DB.Create(&message).Error
+	return
+}
 
 func FindConversations(uid string, page, pageSize int) (messages []Message, count int64, err error) {
 	err = global.App.DB.Where("id in (select max(id) from messages where status != 2 and from_id != 1  and (from_id = ? or to_id = ?) group by conversation_id) ", uid, uid).Order("messages.id desc").Offset((page - 1) * pageSize).Limit(pageSize).Find(&messages).Count(&count).Error

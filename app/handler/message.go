@@ -39,3 +39,16 @@ func GetConversationDetail(c *gin.Context) {
 		response.Success(c, res)
 	}
 }
+
+func SendLetter(c *gin.Context) {
+	var sendMessageReq request.SendMessageReq
+	if err := c.ShouldBindJSON(&sendMessageReq); err != nil {
+		response.Fail(c, request.GetErrorMsg(sendMessageReq, err))
+		return
+	}
+	if err := services.MessageService.SendLetter(c.Keys["id"].(string), sendMessageReq.ToUserId, sendMessageReq.Content); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, nil)
+	}
+}
