@@ -86,4 +86,5 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	messageAuth := authRouter.Group("/letter", middleware.JWTAuth(services.AppGuardName))
 	messageAuth.POST("/list", handler.GetLetterList)
 	messageAuth.GET("/unread_count", handler.UnreadCount)
+	messageAuth.POST("/detail/:conversationId", handler.GetConversationDetail)
 }

@@ -16,6 +16,11 @@ type Message struct {
 	SoftDeletes
 }
 
+const (
+	UnRead = iota
+	Read
+)
+
 func (message Message) GetUid() string {
 	return strconv.Itoa(int(message.ID.ID))
 }
@@ -44,5 +49,14 @@ func FindNoticeUnreadCount(uid, topic string) (count int64, err error) {
 		query += "and conversation_id = '" + topic + "'"
 	}
 	err = global.App.DB.Table("messages").Where("status = 0 and from_id = 1 and to_id = ? "+query, uid).Count(&count).Error
+	return
+}
+func FindLetters(countonversationId string, page, pageSize int) (message []Message, count int64, err error) {
+	err = global.App.DB.Where("status != 2 and from_id != 1 and conversation_id = ?", countonversationId).Offset((page - 1) * pageSize).Limit(pageSize).Find(&message).Count(&count).Error
+	return
+}
+
+func UpdateMessageStatus(ids []uint, status int) (err error) {
+	err = global.App.DB.Table("messages").Where("id in (?)", ids).Update("status", status).Error
 	return
 }

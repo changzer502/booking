@@ -70,3 +70,53 @@ func (service *messageService) UnreadCount(uid string) (*response.UnreadCountRes
 		NoticeUnreadCount: noticeUnreadCount,
 	}, nil
 }
+
+func (service *messageService) GetConversationDetail(uid, conversationId string, pageNo, pageSize int) (*response.ConversationsRes, error) {
+	userId, _ := strconv.Atoi(uid)
+	letters, count, err := models.FindLetters(conversationId, pageNo, pageSize)
+	if err != nil {
+		return nil, err
+	}
+	conversations := make([]response.Conversations, 0)
+	unreadIds := make([]uint, 0)
+	for _, letter := range letters {
+		conversation := response.Conversations{
+			Conversation: letter,
+		}
+		// 对方用户
+		targetId := letter.FromId
+		if uint(userId) == letter.FromId {
+			targetId = letter.ToId
+		}
+		target, err := models.FindUserById(targetId)
+		if err != nil {
+			return nil, err
+		}
+		conversation.Target = *target
+
+		conversations = append(conversations, conversation)
+
+		//获得未读消息的id
+		if uint(userId) == letter.ToId && letter.Status == "0" {
+			unreadIds = append(unreadIds, letter.ID.ID)
+		}
+	}
+
+	// 更新未读消息状态
+	if len(unreadIds) > 0 {
+		err = models.UpdateMessageStatus(unreadIds, models.Read)
+		if err != nil {
+			return nil, err
+		}
+	}
+	// 未读数量
+	unreadCount, err := models.FindLetterUnreadCount(uid, conversationId)
+	if err != nil {
+		return nil, err
+	}
+	return &response.ConversationsRes{
+		Count:         count,
+		Conversations: conversations,
+		UnReadCount:   unreadCount,
+	}, nil
+}

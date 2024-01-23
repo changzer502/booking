@@ -26,3 +26,16 @@ func UnreadCount(c *gin.Context) {
 		response.Success(c, res)
 	}
 }
+
+func GetConversationDetail(c *gin.Context) {
+	var form request.Page
+	if err := c.ShouldBindJSON(&form); err != nil {
+		response.Fail(c, request.GetErrorMsg(form, err))
+		return
+	}
+	if res, err := services.MessageService.GetConversationDetail(c.Keys["id"].(string), c.Param("conversationId"), form.PageNo, form.PageSize); err != nil {
+		response.Fail(c, err.Error())
+	} else {
+		response.Success(c, res)
+	}
+}

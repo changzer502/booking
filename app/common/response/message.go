@@ -5,6 +5,7 @@ import "registration-booking/app/models"
 type ConversationsRes struct {
 	Conversations []Conversations `json:"conversations"`
 	Count         int64           `json:"count"`
+	UnReadCount   int64           `json:"unread_count"`
 }
 
 type Conversations struct {
