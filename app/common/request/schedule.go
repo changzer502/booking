@@ -34,6 +34,8 @@ type ScheduleReq struct {
 }
 type BookingHistoryByDeptReq struct {
 	Page
-	DoctorId uint   `form:"doctor_id" json:"doctor_id" `
-	Date     string `form:"date" json:"date" `
+	DoctorId   uint   `form:"doctor_id" json:"doctor_id" `
+	Date       string `form:"date" json:"date" `
+	DoctorName string `form:"doctor_name" json:"doctor_name" `
+	Name       string `form:"name" json:"name" `
 }

@@ -3,6 +3,7 @@ package models
 import (
 	"registration-booking/global"
 	"strconv"
+	"strings"
 )
 
 type Booking struct {
@@ -29,14 +30,21 @@ func FindBookingHistoryByUid(userId uint, page, pageSize int) (bookings []Bookin
 	err = global.App.DB.Where("user_id = ? ", userId).Order("created_at DESC").Offset((page - 1) * pageSize).Limit(pageSize).Find(&bookings).Count(&count).Error
 	return
 }
-func FindBookingHistoryByDeptId(deptId, doctorId uint, Date string, page, pageSize int) (bookings []Booking, count int64, err error) {
+func FindBookingHistoryByDeptId(deptId, doctorId uint, Date string, page, pageSize int, doctorIds, cardIds []string) (bookings []Booking, count int64, err error) {
 	query := ""
 	if doctorId != 0 {
 		query += " AND schedules.doctor_id = " + strconv.Itoa(int(doctorId))
 	}
+	if len(doctorIds) != 0 {
+		query += " AND schedules.doctor_id IN (" + strings.Join(doctorIds, ",") + ")"
+	}
+	if len(cardIds) != 0 {
+		query += " AND bookings.card_id IN (" + strings.Join(cardIds, ",") + ")"
+	}
 	if Date != "" {
 		query += " AND tickets.`day` = '" + Date + "'"
 	}
+
 	global.App.DB.Table("bookings").Joins("left join tickets on bookings.ticket_id = tickets.id").Joins("left join schedules on tickets.schedule_id = schedules.id").Where("schedules.department_id = ? "+query, deptId).Order("bookings.rank").Offset((page - 1) * pageSize).Limit(pageSize).Find(&bookings).Count(&count)
 	return
 }

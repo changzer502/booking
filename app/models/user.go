@@ -59,3 +59,8 @@ func UpdateUser(user User) (err error) {
 	err = global.App.DB.Updates(&user).Error
 	return
 }
+
+func FindDoctorByName(name string) (users []User, err error) {
+	err = global.App.DB.Where("role_id = 2 AND nickname LIKE '%" + name + "%'").Find(&users).Error
+	return
+}

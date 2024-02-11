@@ -284,7 +284,33 @@ func (scheduleService *scheduleService) BookingHistory(page request.Page, id str
 func (scheduleService *scheduleService) BookingHistoryByDept(page request.BookingHistoryByDeptReq, dept_id string) (res *response.PageData, err error) {
 	res = &response.PageData{}
 	deptId, _ := strconv.Atoi(dept_id)
-	bookings, count, err := models.FindBookingHistoryByDeptId(uint(deptId), page.DoctorId, page.Date, page.PageNo, page.PageSize)
+	doctorIds := make([]string, 0)
+	cardIds := make([]string, 0)
+	if page.DoctorName != "" {
+		doctors, err := models.FindDoctorByName(page.DoctorName)
+		if err != nil {
+			return nil, err
+		}
+		for i := 0; i < len(doctors); i++ {
+			doctorIds = append(doctorIds, strconv.Itoa(int(doctors[i].ID.ID)))
+		}
+		if len(doctorIds) == 0 {
+			doctorIds = append(doctorIds, "-1")
+		}
+	}
+	if page.Name != "" {
+		cards, err := models.FindCardsByName(page.Name)
+		if err != nil {
+			return nil, err
+		}
+		for i := 0; i < len(cards); i++ {
+			cardIds = append(cardIds, strconv.Itoa(int(cards[i].ID.ID)))
+		}
+		if len(cardIds) == 0 {
+			cardIds = append(cardIds, "-1")
+		}
+	}
+	bookings, count, err := models.FindBookingHistoryByDeptId(uint(deptId), page.DoctorId, page.Date, page.PageNo, page.PageSize, doctorIds, cardIds)
 	if err != nil {
 		return nil, err
 	}

@@ -43,3 +43,9 @@ func FindAllCardListByPage(page, pageSize int, query string) (cards []Card, tota
 	err = global.App.DB.Where("1 = 1" + query).Offset((page - 1) * pageSize).Limit(pageSize).Find(&cards).Count(&total).Error
 	return
 }
+
+func FindCardsByName(name string) (cards []Card, err error) {
+	err = global.App.DB.Where("name LIKE '%" + name + "%'").Find(&cards).Error
+	return
+
+}
