@@ -88,4 +88,6 @@ func SetApiGroupRoutes(router *gin.RouterGroup) {
 	messageAuth.GET("/unread_count", handler.UnreadCount)
 	messageAuth.POST("/detail/:conversationId", handler.GetConversationDetail)
 	messageAuth.POST("/send_letter", handler.SendLetter)
+	messageAuth.POST("/notice/list", handler.GetNoticeList)
+	messageAuth.POST("/notice/send_notice", handler.SendNotice)
 }

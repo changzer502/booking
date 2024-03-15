@@ -2,6 +2,8 @@ package services
 
 import (
 	"errors"
+	"fmt"
+	"github.com/goccy/go-json"
 	"registration-booking/app/common/request"
 	"registration-booking/app/common/response"
 	"registration-booking/app/models"
@@ -216,6 +218,37 @@ func (scheduleService *scheduleService) Booking(getScheduleListReq request.Booki
 		Rank:     ticket.Total - ticket.Num,
 	}
 	tx.Create(&booking)
+
+	// 发送通知
+	card, err := models.FindCardById(getScheduleListReq.CardId)
+	if err != nil {
+		return err, nil
+	}
+	schedule, err := models.FindScheduleByID(ticket.ScheduleId)
+	if err != nil {
+		return err, nil
+	}
+	department, err := models.FindDepartmentById(schedule.DepartmentId)
+	if err != nil {
+		return err, nil
+	}
+	doctor, err := models.FindDoctorById(schedule.DoctorId)
+	if err != nil {
+		return err, nil
+	}
+	content := models.Content{
+		Title:     "门诊挂号预约成功通知",
+		Content:   fmt.Sprintf("尊敬的用户：\n您已成功预约门诊服务，预约详情如下：\n就诊人：%v\n预约科室：%v\n主治医生：%v\n预约时间：%v %v", card.Name, department.DeptName, doctor.Nickname, ticket.Day, schedule.Time),
+		BookingID: int64(booking.ID.ID),
+	}
+	contentStr, _ := json.Marshal(content)
+	message := models.Message{
+		FromId:         1,
+		ToId:           uint(uid),
+		ConversationId: "notice",
+		Content:        string(contentStr),
+	}
+	tx.Create(&message)
 	return
 }
 

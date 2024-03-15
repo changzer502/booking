@@ -63,7 +63,7 @@ func (service *messageService) UnreadCount(uid string) (*response.UnreadCountRes
 	if err != nil {
 		return nil, err
 	}
-	noticeUnreadCount, err := models.FindNoticeUnreadCount(uid, "")
+	noticeUnreadCount, err := models.FindNoticeUnreadCount(uid, "notice")
 	if err != nil {
 		return nil, err
 	}
@@ -145,10 +145,41 @@ func (service *messageService) SendLetter(uid, toUserId, content string) error {
 	return nil
 }
 
+func (service *messageService) SendNotice(uid, toUserId, content string) error {
+	toId, _ := strconv.Atoi(toUserId)
+	userId, _ := strconv.Atoi(uid)
+	toUser, err := models.FindUserById(uint(toId))
+	if err != nil {
+		return errors.New(fmt.Sprintf("用户不存在"))
+	}
+	// 创建消息
+	message := models.Message{
+		FromId:         uint(userId),
+		ToId:           toUser.ID.ID,
+		Content:        content,
+		Status:         "0",
+		ConversationId: "notice",
+	}
+	err = message.CreateMessage()
+	if err != nil {
+		return errors.New("创建消息失败")
+	}
+	return nil
+}
+
 func getConversationId(id1, id2 int) string {
 	if id1 > id2 {
 		return fmt.Sprintf("%v_%v", id2, id1)
 	}
 	return fmt.Sprintf("%v_%v", id1, id2)
 
+}
+
+func (service *messageService) GetNoticeList(uid string, pageNo, pageSize int) ([]models.Message, int64, error) {
+	//会话列表
+	conversationList, count, err := models.FindNotices(uid, pageNo, pageSize)
+	if err != nil {
+		return nil, 0, err
+	}
+	return conversationList, count, nil
 }

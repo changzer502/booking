@@ -16,6 +16,12 @@ type Message struct {
 	SoftDeletes
 }
 
+type Content struct {
+	Title     string `json:"title"`
+	Content   string `json:"content"`
+	BookingID int64  `json:"bookingId"`
+}
+
 const (
 	UnRead = iota
 	Read
@@ -62,5 +68,10 @@ func FindLetters(countonversationId string, page, pageSize int) (message []Messa
 
 func UpdateMessageStatus(ids []uint, status int) (err error) {
 	err = global.App.DB.Table("messages").Where("id in (?)", ids).Update("status", status).Error
+	return
+}
+
+func FindNotices(uid string, page, pageSize int) (messages []Message, count int64, err error) {
+	err = global.App.DB.Table("messages").Where("from_id = 1 and conversation_id = 'notice' and to_id = ?", uid).Offset((page - 1) * pageSize).Limit(pageSize).Find(&messages).Count(&count).Error
 	return
 }
