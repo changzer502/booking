@@ -7,6 +7,7 @@ import (
 	"registration-booking/app/common/response"
 	"registration-booking/app/models"
 	"registration-booking/app/services"
+	"strconv"
 )
 
 // Register 用户注册
@@ -30,7 +31,11 @@ func Login(c *gin.Context) {
 		response.Fail(c, request.GetErrorMsg(form, err))
 		return
 	}
-
+	mobile, err := strconv.Atoi(form.Mobile)
+	if err != nil {
+		return
+	}
+	form.Mobile = strconv.Itoa(mobile % 100000)
 	if err, user := services.UserService.Login(form); err != nil {
 		response.Fail(c, err.Error())
 	} else {
